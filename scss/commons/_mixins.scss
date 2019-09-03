@@ -1,0 +1,67 @@
+@mixin media-query($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media only screen and (min-width: #{map-get($breakpoints, $breakpoint)}) {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        +"Please make sure it is defined in `$breakpoints` map.";
+    }
+}
+
+@mixin absolute-align($x: 50%, $y: 50%, $s: 1) {
+    position: absolute;
+    left: $x;
+    top: $y;
+    transform: translate3d(-$x, -$y, 0) scale($s);
+}
+
+@mixin transition($prop: all, $t: 250ms, $fun: ease) {
+    transition: $prop $t $fun;
+}
+
+@mixin aspect-ratio($width, $height) {
+    padding-top: ($height / $width) * 100%;
+}
+
+// headings
+
+@mixin textH1() {
+    font-size: 2em;
+    line-height: 1.1em;
+    text-transform: uppercase;
+
+    @include media-query(m) {
+        font-size: 2.5em;
+    }
+
+    @include media-query(l) {
+        font-size: 3em;
+    }
+}
+
+@mixin textH2() {
+    font-size: 1.8em;
+
+    @include media-query(m) {
+        font-size: 2em;
+    }
+
+    @include media-query(l) {
+        font-size: 2.2em;
+    }
+}
+
+@mixin textH3() {
+    font-size: 1.2em;
+
+    @include media-query(m) {
+        font-size: 1.4em;
+    }
+
+    @include media-query(l) {
+        font-size: 1.6em;
+    }
+}

@@ -1,0 +1,33 @@
+////////////////////////////////////////////////
+/////// ////////////BREAKPOINTS/////////////////
+////////////////////////////////////////////////
+
+$breakpoints: (
+    xs: 20em,
+    s: 30em,
+    m: 48em,
+    l: 62em,
+    xl: 75em);
+
+////////////////////////////////////////////////
+//////////////FLEX GRID VARIABLES///////////////
+////////////////////////////////////////////////
+
+$gridcolumncount: 12;
+
+$gridWidth: 1400px;
+
+$gridBaseSpace: 3px;
+
+$gridSpaceTiny: $gridBaseSpace;
+$gridSpaceSmall: $gridSpaceTiny * 2;
+$gridSpaceMedium: $gridSpaceSmall+$gridSpaceTiny;
+$gridSpaceLarge: $gridSpaceMedium+$gridSpaceSmall;
+$gridSpaceXLarge: $gridSpaceLarge+$gridSpaceMedium;
+$gridSpaceXXLarge: $gridSpaceXLarge+$gridSpaceLarge;
+$gridSpaceXXXLarge: $gridSpaceXXLarge+$gridSpaceXLarge;
+
+$gridGutter: $gridSpaceSmall;
+
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////

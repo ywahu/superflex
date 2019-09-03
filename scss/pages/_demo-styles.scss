@@ -1,0 +1,21 @@
+.grid{
+    background: $uniBlue;
+}
+
+
+[class^="col-"]{
+    box-sizing: border-box;
+    background: $uniDarkGrey;
+    min-height: 150px;
+    h2{
+        color: $uniBlue !important;
+    }
+    .description{
+        text-align: center;
+        color: $uniBlue;
+    }
+    .selected{
+        font-family: $boldSansTwo;
+        text-decoration: underline;
+    }
+}

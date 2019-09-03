@@ -1,0 +1,54 @@
+
+.uni-module-header {
+    margin: 0;
+
+    .uni-module-title {
+        @include textH1();
+        margin: $gridSpaceLarge 0 $gridSpaceMedium 0;
+    }
+}
+
+h1 {
+    @include textH1();
+    color: $textColor;
+    margin: 0.35em 0;
+}
+
+h2 {
+    @include textH2();
+    color: $textColor;
+    margin: 0;
+}
+
+h3 {
+    @include textH3();
+    color: $textColor;
+    margin: 0;
+}
+
+.decorative-h{
+    font-family: $boldItalicSerif !important;
+    text-transform: none;
+
+}
+
+.alternative-h{
+    font-family: $boldSansTwo;
+    text-transform: none;
+}
+
+.boldsans {
+    font-family: $boldSansTwo;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
