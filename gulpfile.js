@@ -1,35 +1,54 @@
-'use strict';
+"use strict";
+const { src, dest, series, watch } = require("gulp");
+const sass = require("gulp-sass")(require("sass"));
+const sourcemaps = require("gulp-sourcemaps");
+const browserSync = require("browser-sync").create();
+const del = require("del");
+const beautify = require("gulp-beautify");
+const autoprefixer = require("gulp-autoprefixer");
+const minify = require("gulp-minify");
 
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var del = require('del');
-var browserSync = require('browser-sync').create();
+function defaultTask(cb) {
+  // place code for your default taskhere
+  cb();
+}
 
-sass.compiler = require('node-sass');
+function clean() {
+  return del(["./dist/css", "./dist/*.html", "./dist/scripts"]);
+}
 
-gulp.task('clean', function () {
-  return del(['./dist/styles.css'])
-});
+function minJs() {
+  return src("./src/scripts/*.js").pipe(minify()).pipe(dest("./dist/scripts"));
+}
 
-gulp.task('sass', gulp.series('clean', function () {
-  return gulp.src('./scss/**/*.scss')
-    .pipe(sass({
-      outputStyle: 'compressed'
-    }).on('error', sass.logError))
-    .pipe(gulp.dest('./dist'))
+function styles() {
+  return src("./src/scss/**/*.scss")
+    .pipe(sourcemaps.init())
+    .pipe(sass().on("error", sass.logError))
+    .pipe(autoprefixer())
+    .pipe(sourcemaps.write("."))
+    .pipe(dest("./dist/css"))
     .pipe(browserSync.stream());
-}));
+}
 
-gulp.task('watch', function () {
-  gulp.watch('./scss/**/*.scss', gulp.series('sass'));
-});
-
-gulp.task('serve', gulp.parallel('sass', function () {
-
+function watchFiles() {
   browserSync.init({
-    server: "./"
+    server: {
+      baseDir: "./",
+      serveStaticOptions: {
+        extensions: ["html"],
+      },
+    },
   });
+  watch("./**/*.scss", styles);
+  watch("./**/*.js", minJs);
+  watch("./*.html").on("change", browserSync.reload);
+}
 
-  gulp.watch('./scss/**/*.scss', gulp.series('sass'));
-
-}));
+exports.minJs = minJs;
+exports.watchFiles = watchFiles;
+exports.styles = styles;
+exports.default = defaultTask;
+exports.clean = clean;
+exports.build = series(clean, minJs, styles);
+exports.default = series(clean, minJs, styles, watchFiles);
